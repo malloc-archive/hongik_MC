@@ -20,6 +20,7 @@ public class Main extends JavaPlugin{
 		
 
 		getCommand("입금").setExecutor(new Command());
+		getCommand("송금op").setExecutor(new Command());
 		getCommand("송금").setExecutor(new Command());
 		getCommand("인출").setExecutor(new Command());
 		getServer().getPluginManager().registerEvents(new Join_Dis(), this);

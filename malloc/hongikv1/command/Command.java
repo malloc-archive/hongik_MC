@@ -21,11 +21,16 @@ public class Command implements CommandExecutor {
 		
 		Bukkit.getConsoleSender().sendMessage(command.getName());
 
-		if (command.getName().equalsIgnoreCase("송금")) {
-			if (args.length == 2) {
-				String name = args[0];
-				int amount = Integer.parseInt(args[1]);
-				int curr = ConfigMain.getMoney(player.getName());
+		if (command.getName().equalsIgnoreCase("송금_op")) {
+			if(!sender.isOp()) {
+				sender.sendMessage(ChatColor.RED + "You don't have OP!");
+				return false;
+			}
+			if (args.length == 3) {
+				String fname = args[0];
+				String tname = args[1];
+				int amount = Integer.parseInt(args[2]);
+				int curr = ConfigMain.getMoney(fname);
 				
 				if(amount < 0) {
 					sender.sendMessage(ChatColor.RED + "어딜");
@@ -33,7 +38,7 @@ public class Command implements CommandExecutor {
 				}
 				
 				if (amount <= curr) {
-					ConfigMain.songgem(sender.getName(), name, amount);
+					ConfigMain.songgem(fname, tname, amount);
 				} else {
 					sender.sendMessage(ChatColor.RED + "돈이 충분하지 않습니다!");
 				}
@@ -59,6 +64,23 @@ public class Command implements CommandExecutor {
 				ConfigMain.withdraw(name, Integer.parseInt(args[1]));
 			} else {
 
+			}
+		} else if (command.getName().equalsIgnoreCase("송금")) {
+			if (args.length == 2) {
+				String name = args[0];
+				int amount = Integer.parseInt(args[1]);
+				int curr = ConfigMain.getMoney(player.getName());
+				
+				if(amount < 0) {
+					sender.sendMessage(ChatColor.RED + "어딜");
+					return false;
+				}
+				
+				if (amount <= curr) {
+					ConfigMain.songgem(sender.getName(), name, amount);
+				} else {
+					sender.sendMessage(ChatColor.RED + "돈이 충분하지 않습니다!");
+				}
 			}
 		}
 
