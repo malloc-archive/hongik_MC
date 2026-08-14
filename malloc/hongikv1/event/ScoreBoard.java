@@ -10,6 +10,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 
 import malloc.hongikv1.config.ConfigMain;
+import malloc.hongikv1.main.Main;
 
 public class ScoreBoard {
 	
@@ -41,6 +42,6 @@ public class ScoreBoard {
 		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 		
 		obj.getScore("돈").setScore(ConfigMain.getMoney(p));
-		Bukkit.getPlayer(p).setScoreboard(board);
+		Main.getMain().getServer().getPlayer(p).setScoreboard(board);
 	}
 }

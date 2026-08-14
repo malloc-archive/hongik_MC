@@ -51,24 +51,28 @@ public class ConfigMain {
 	public static void deposit(Player p, int amount) {
 		customFile.set(p.getName(), Integer.toString(Integer.parseInt((String)customFile.get(p.getName())) + amount));
 		save();
-		ScoreBoard.reload(p);
+		if(Main.isOnline(p))
+			ScoreBoard.reload(p);
 	}
 	public static void withdraw(Player p, int amount) {
 		customFile.set(p.getName(), Integer.toString(Integer.parseInt((String)customFile.get(p.getName())) - amount));
 		save();
-		ScoreBoard.reload(p);
+		if(Main.isOnline(p))
+			ScoreBoard.reload(p);
 	}
 	
 	public static void deposit(String p, int amount) {
 		customFile.set(p, Integer.toString(Integer.parseInt((String)customFile.get(p)) + amount));
 		Bukkit.getConsoleSender().sendMessage("돈"+(String)customFile.get(p)+"수량"+Integer.toString(amount));
 		save();
-		ScoreBoard.reload(p);
+		if(Main.isOnline(p))
+			ScoreBoard.reload(p);
 	}
 	public static void withdraw(String p, int amount) {
 		customFile.set(p, Integer.toString(Integer.parseInt((String)customFile.get(p)) - amount));
 		save();
-		ScoreBoard.reload(p);
+		if(Main.isOnline(p))
+			ScoreBoard.reload(p);
 	}
 	
 	public static void songgem(String from, String to, int amount) {
