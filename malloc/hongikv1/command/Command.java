@@ -7,7 +7,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import malloc.hongikv1.config.ConfigMain;
-import malloc.hongikv1.sori.Anony;
+import malloc.hongikv1.main.Main;
+import malloc.hongikv1.shop.ShopMain;
+import malloc.hongikv1.thread.WebhookThread;
 
 public class Command implements CommandExecutor {
 
@@ -86,10 +88,40 @@ public class Command implements CommandExecutor {
 				}
 
 			}
-		} else if (command.getName().equalsIgnoreCase("의견제출")) {
-			if (args.length == 1) {
-				Anony.sendDiscord(args[0]);
+		} else if (command.getName().equalsIgnoreCase("의견제출")) {	
+			
+			if(args.length >= 1) {
+				String formatted = "";
+				for(int i = 0; i < args.length; i++) {
+					formatted += args[i] + " ";
+				}
+				WebhookThread web = new WebhookThread(formatted);
+				web.start();
 			}
+		} else if(command.getName().equalsIgnoreCase("메뉴")) {
+			ShopMain.giveMenu(player);
+		} else if(command.getName().equalsIgnoreCase("spawn")) {
+			if(ConfigMain.getMoney(player.getName()) >= 1000) {
+				ConfigMain.withdraw(player, 1000);
+				player.teleport(player.getRespawnLocation());
+			} else {
+				player.sendMessage(ChatColor.RED + "돈이 부족합니다!");
+			}
+		} else if(command.getName().equalsIgnoreCase("tpa")) {
+			if(ConfigMain.getMoney(player.getName()) < 10000) {
+				player.sendMessage(ChatColor.RED + "돈이 부족합니다!");
+				return false;
+			}
+			if(args.length == 1) {
+				if(!Main.isOnline(args[0])) {
+					player.sendMessage(ChatColor.RED + "해당 플레이어는 온라인이 아닙니다!");
+					return false;
+				}
+				Main.getTpa().addRequest(player.getName(), args[0]);
+				
+			}
+		} else if(command.getName().equalsIgnoreCase("tpaccept")) {
+			Main.getTpa().tpAccept(player.getName());
 		}
 
 		return false;

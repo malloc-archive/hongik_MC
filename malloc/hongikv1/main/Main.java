@@ -8,9 +8,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 import malloc.hongikv1.command.Command;
 import malloc.hongikv1.config.ConfigMain;
 import malloc.hongikv1.event.Join_Dis;
+import malloc.hongikv1.shop.Menu;
+import malloc.hongikv1.shop.ShopMain;
+import malloc.hongikv1.thread.Tpa;
 
 public class Main extends JavaPlugin{
-	
+	static Tpa thr;
 	private static Main instance;
 	
 	@Override
@@ -25,15 +28,25 @@ public class Main extends JavaPlugin{
 		getCommand("송금").setExecutor(new Command());
 		getCommand("인출").setExecutor(new Command());
 		getCommand("의견제출").setExecutor(new Command());
+		getCommand("메뉴").setExecutor(new Command());
+		getCommand("spawn").setExecutor(new Command());
+		getCommand("tpa").setExecutor(new Command());
+		getCommand("tpaccept").setExecutor(new Command());
 		getServer().getPluginManager().registerEvents(new Join_Dis(), this);
-		
+		getServer().getPluginManager().registerEvents(new ShopMain(), this);
+
 		getConfig().options().copyDefaults();
 		saveDefaultConfig();
 		
 		ConfigMain.setup();
 		ConfigMain.get().options().copyDefaults(true);
-		
-		
+		Menu.setupMenu();
+		thr = new Tpa();
+		thr.start();
+	}
+	
+	public static Tpa getTpa() {
+		return thr;
 	}
 	
 	@Override
