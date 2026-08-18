@@ -3,8 +3,10 @@ package malloc.hongikv1.config;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -32,6 +34,9 @@ public class ConfigMain {
 		}
 		
 		customFile = YamlConfiguration.loadConfiguration(file);
+		if(!customFile.contains("nickname")) {
+			customFile.addDefault("nickname", new HashMap<String, String>());
+		}
 	}
 	public static Integer getMoney(String name) {
 		return Integer.parseInt((String)customFile.get(name));
@@ -47,7 +52,36 @@ public class ConfigMain {
 		
 	
 	}
-	//여기부턴 이해하려하지말것.
+	
+	public static void registerNickname(String uuid, String nickName) {
+		if(getNameMap().containsKey("uuid")) {
+			
+		} else {
+			
+		}
+	}
+	
+	public static HashMap<String,String> getNameMap(){
+		HashMap<String,String> nameMap = new HashMap<>();
+		
+		if(customFile.isConfigurationSection("nickname")) {
+			ConfigurationSection section = customFile.getConfigurationSection("nickname");
+			
+			for(String key : section.getKeys(false)) {
+				nameMap.put(key, (String)section.get(key));
+			}
+		
+		}
+		return nameMap;
+	}
+	
+	public static void putName(String uuid, String name) {
+	    customFile.set("nickname." + uuid, name);
+	    save();
+	}
+	
+	
+	//Overload for String and Player type.
 	public static void deposit(Player p, int amount) {
 		customFile.set(p.getName(), Integer.toString(Integer.parseInt((String)customFile.get(p.getName())) + amount));
 		save();

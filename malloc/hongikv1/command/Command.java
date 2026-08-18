@@ -122,6 +122,13 @@ public class Command implements CommandExecutor {
 			}
 		} else if(command.getName().equalsIgnoreCase("tpaccept")) {
 			Main.getTpa().tpAccept(player.getName());
+		} else if(command.getName().equalsIgnoreCase("칭호변경")) {
+			if(args.length == 1) {
+				if(ConfigMain.getMoney(player.getName()) >= 100000) {
+					ConfigMain.withdraw(player, 100000);
+					ConfigMain.putName(player.getUniqueId().toString(), args[0]);
+				}
+			}
 		}
 
 		return false;

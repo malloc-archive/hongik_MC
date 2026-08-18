@@ -52,6 +52,9 @@ public class ShopMain implements Listener {
 					if (e.getCurrentItem().getItemMeta().getLore().equals(Lore.getItemLore("etcShop"))) {
 						e.getWhoClicked().openInventory(Menu.getetc());
 					}
+					if (e.getCurrentItem().getItemMeta().getLore().equals(Lore.getItemLore("warpShop"))) {
+						e.getWhoClicked().openInventory(Menu.getWarp());
+					}
 				}
 
 			}
@@ -141,8 +144,8 @@ public class ShopMain implements Listener {
 
 						}
 					} else if (e.getCurrentItem().getItemMeta().getLore().equals(Lore.getItemLore("etcWipe"))) {
-						if (ConfigMain.getMoney(e.getWhoClicked().getName()) >= 10000000) {
-							ConfigMain.withdraw(e.getWhoClicked().getName(), 10000000);
+						if (ConfigMain.getMoney(e.getWhoClicked().getName()) >= 1000000) {
+							ConfigMain.withdraw(e.getWhoClicked().getName(), 1000000);
 							World end = Bukkit.getWorld("world_the_end");
 							if (end == null) {
 								Bukkit.getConsoleSender().sendMessage("couldn't find world \"world_the_end\"");
@@ -184,6 +187,21 @@ public class ShopMain implements Listener {
 
 			}
 		}
+		if (e.getView().getTitle() == "워프 상점") {
+			e.setCancelled(true);
+			if (e.getCurrentItem().getItemMeta().getLore() == null) {
+
+			} else {
+				if (e.getCurrentItem().getItemMeta().getLore().equals(Lore.getItemLore("warpEnd"))) {
+					if (e.getClick().equals(ClickType.LEFT)) {
+						if(ConfigMain.getMoney(e.getWhoClicked().getName()) >= 100000) {
+							ConfigMain.withdraw(e.getWhoClicked().getName(), 100000);
+							e.getWhoClicked().teleport(Bukkit.getWorld("world_the_end").getSpawnLocation());
+						}
+					} 
+				}
+			}
+		}
 	}
 
 	@EventHandler
@@ -193,7 +211,9 @@ public class ShopMain implements Listener {
 			if (e.getItem() == null) {
 				return;
 			}
-			if (e.getItem().getItemMeta().getLore().equals(Lore.getItemLore("menu"))) {
+			if(e.getItem().getItemMeta().getLore() == null) {
+				return;
+			} else if (e.getItem().getItemMeta().getLore().equals(Lore.getItemLore("menu"))) {
 				openMenu(e);
 			}
 		}

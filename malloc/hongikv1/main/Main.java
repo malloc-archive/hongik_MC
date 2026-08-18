@@ -7,6 +7,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import malloc.hongikv1.command.Command;
 import malloc.hongikv1.config.ConfigMain;
+import malloc.hongikv1.event.BotDetect;
+import malloc.hongikv1.event.Chat;
 import malloc.hongikv1.event.Join_Dis;
 import malloc.hongikv1.shop.Menu;
 import malloc.hongikv1.shop.ShopMain;
@@ -18,7 +20,7 @@ public class Main extends JavaPlugin{
 	
 	@Override
 	public void onEnable() {
-		Bukkit.getConsoleSender().sendMessage("---------------------------\n ENABLED\n ---------------------------");
+		Bukkit.getConsoleSender().sendMessage("\n---------------------------\n ENABLED\n ---------------------------");
 		
 		instance = this;
 		
@@ -32,9 +34,12 @@ public class Main extends JavaPlugin{
 		getCommand("spawn").setExecutor(new Command());
 		getCommand("tpa").setExecutor(new Command());
 		getCommand("tpaccept").setExecutor(new Command());
+		getCommand("칭호변경").setExecutor(new Command());
 		getServer().getPluginManager().registerEvents(new Join_Dis(), this);
+		getServer().getPluginManager().registerEvents(new Chat(), this);
 		getServer().getPluginManager().registerEvents(new ShopMain(), this);
-
+		getServer().getPluginManager().registerEvents(new BotDetect(), this);
+		
 		getConfig().options().copyDefaults();
 		saveDefaultConfig();
 		
@@ -51,7 +56,7 @@ public class Main extends JavaPlugin{
 	
 	@Override
 	public void onDisable() {
-		Bukkit.getConsoleSender().sendMessage("---------------------------\n DISABLED\n ---------------------------");
+		Bukkit.getConsoleSender().sendMessage("\n---------------------------\n DISABLED\n ---------------------------");
 	}
 	
 	public static Main getMain() {

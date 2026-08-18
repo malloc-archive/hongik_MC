@@ -17,8 +17,11 @@ public class Lore {
 	public static List<String> etcShop = new ArrayList<String>();
 	public static List<String> etcDegg = new ArrayList<String>();
 	public static List<String> etcWipe = new ArrayList<String>();
+	public static List<String> warpShop = new ArrayList<String>();
+	public static List<String> warpEnd = new ArrayList<String>();
 
 
+	//Lore and item register should be optimized, but not planned
 	public static void setupItems() {
 		shopLore.add("광물 상점");
 		menuLore.add("클릭하여 메뉴 열기");
@@ -30,10 +33,16 @@ public class Lore {
 		shopDia.add(ChatColor.WHITE + "[쉬프트+클릭] 1세트 거래");
 		etcShop.add(ChatColor.WHITE + "기타 아이템");
 		etcDegg.add(ChatColor.WHITE + "2,000,000₩");
+		etcDegg.add("");
 		etcDegg.add(ChatColor.WHITE + "[좌클릭] 구매");
-		etcWipe.add(ChatColor.WHITE + "10,000,000₩");
+		etcWipe.add(ChatColor.WHITE + "" + ChatColor.STRIKETHROUGH + "10,000,000₩");
+		etcWipe.add(ChatColor.WHITE + "1,000,000₩");
+		etcWipe.add("");
 		etcWipe.add(ChatColor.WHITE + "[좌클릭] 구매");
-
+		warpShop.add(ChatColor.WHITE + "월드 워프");
+		warpEnd.add(ChatColor.WHITE + "100,000₩");
+		warpEnd.add("");
+		warpEnd.add(ChatColor.WHITE + "[좌클릭] 구매");
 		
 		items.put("shop",shopLore);
 		items.put("menu", menuLore);
@@ -42,6 +51,8 @@ public class Lore {
 		items.put("etcShop", etcShop);
 		items.put("etcDegg", etcDegg);
 		items.put("etcWipe", etcWipe);
+		items.put("warpShop", warpShop);
+		items.put("warpEnd", warpEnd);
 	}
 	
 	public static List<String> getItemLore(String key) {

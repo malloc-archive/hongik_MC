@@ -11,6 +11,7 @@ public class Menu {
 	public static Inventory menuInv;
 	public static Inventory shopInv;
 	public static Inventory etcInv;
+	public static Inventory warpInv;
 	public static ItemStack shop;
 	public static ItemStack clock;
 	public static ItemStack WIP;
@@ -18,11 +19,14 @@ public class Menu {
 	public static ItemStack etcShop;
 	public static ItemStack etcDegg;
 	public static ItemStack etcWipe;
+	public static ItemStack warpShop;
+	public static ItemStack warpEnd;
 
 	public static void setupMenu() {
 		Lore.setupItems();
 		setupShop();
 		setupEtc();
+		setupWarp();
 		menuInv = Bukkit.createInventory(null, 45, "메뉴");
 
 		shop = new ItemStack(Material.DIAMOND, 1);
@@ -51,7 +55,15 @@ public class Menu {
 		meta.setLore(Lore.getItemLore("etcShop"));
 		etcShop.setItemMeta(meta);
 
-		menuInv.setItem(22, WIP);
+		warpShop = new ItemStack(Material.ENDER_PEARL, 1);
+		meta = warpShop.getItemMeta();
+		meta.setItemName("워프 상점");
+		meta.setLore(Lore.getItemLore("warpShop"));
+		warpShop.setItemMeta(meta);
+		
+		
+		
+		menuInv.setItem(22, warpShop);
 		menuInv.setItem(24, etcShop);
 		
 
@@ -88,6 +100,18 @@ public class Menu {
 		etcInv.setItem(0, etcDegg);
 		etcInv.setItem(1, etcWipe);
 	}
+	
+	public static void setupWarp() {
+		warpInv = Bukkit.createInventory(null, 45, "워프 상점");
+		
+		warpEnd = new ItemStack(Material.END_PORTAL_FRAME, 1);
+		ItemMeta meta = warpEnd.getItemMeta();
+		meta.setItemName("엔더월드");
+		meta.setLore(Lore.getItemLore("warpEnd"));
+		warpEnd.setItemMeta(meta);
+		
+		warpInv.setItem(0, warpEnd);
+	}
 
 	public static Inventory getMenu() {
 		return menuInv;
@@ -102,5 +126,8 @@ public class Menu {
 	}
 	public static Inventory getetc() {
 		return etcInv;
+	}
+	public static Inventory getWarp() {
+		return warpInv;
 	}
 }
